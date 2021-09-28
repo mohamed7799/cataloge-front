@@ -9,6 +9,10 @@ const useStyle = makeStyles({
       margin: "1rem auto",
     },
   },
+  productDetails: {
+    display: "flex",
+    justifyContent: "space-evenly",
+  },
 });
 
 export default useStyle;

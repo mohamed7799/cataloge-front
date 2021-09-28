@@ -1,24 +1,30 @@
-import { Typography } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import useStyle from "./style";
 
-const Product = ({ product }) => {
+const Product = ({ product, category }) => {
+  //variables
   const classes = useStyle();
 
+  //functions
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   });
 
   return (
-    <li className={classes.root}>
+    <Paper variant="outlined" className={classes.root} component="li">
       <img src={`${product.image}`} alt="" />
-      <Typography variant="h6">
-        {product.name + "--" + product.categoryId}
-      </Typography>
+      <Typography variant="h6">{product.name}</Typography>
       <Rating name="rating" value={product.rating} readOnly />
-      <Typography variant="h6">{formatter.format(product.price)}</Typography>
-    </li>
+      <Typography variant="subtitle1">
+        {formatter.format(product.price)}
+      </Typography>
+      <div className={classes.productDetails}>
+        <Typography variant="subtitle1">{product.color}</Typography>
+        <Typography variant="subtitle1">{category}</Typography>
+      </div>
+    </Paper>
   );
 };
 

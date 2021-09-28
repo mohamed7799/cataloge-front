@@ -1,9 +1,15 @@
+import Filters from "./filters/filtres";
 import Products from "./products/products";
+import useStyle from "./style";
 
-const Content = ({ products }) => {
+const Content = ({ products, categories }) => {
+  //variables
+  const classes = useStyle();
+
   return (
-    <section>
-      <Products products={products}></Products>{" "}
+    <section className={classes.root}>
+      <Filters></Filters>
+      <Products categories={categories} products={products}></Products>{" "}
     </section>
   );
 };

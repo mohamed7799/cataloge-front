@@ -19,6 +19,7 @@ const useStyle = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    textAlign: "center",
 
     "&:hover": {
       backgroundColor: "black",

@@ -2,9 +2,12 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyle = makeStyles({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "1rem",
+    padding: "1rem",
+    "& > *": {
+      cursor: "pointer",
+      display: "flex",
+      marginBottom: "1rem",
+    },
   },
 });
 

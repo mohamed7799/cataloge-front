@@ -4,6 +4,19 @@
   margin: 0;
   box-sizing: border-box;
 }
+/*
+#root::-webkit-scrollbar {
+  width: 10px;
+}
+
+#root::-webkit-scrollbar-track {
+  background-color: rgb(202, 202, 202);
+}
+
+#root::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 30px;
+}*/
 
 li {
   list-style: none;
