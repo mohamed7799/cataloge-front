@@ -17,6 +17,9 @@ const useStyle = makeStyles({
       borderRadius: "30px",
     },
   },
+  button: {
+    margin: ".5rem",
+  },
 });
 
 export default useStyle;

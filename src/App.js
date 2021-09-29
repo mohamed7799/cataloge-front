@@ -13,7 +13,6 @@ const App = () => {
   const classes = useStyle();
   const [categories, setCategories] = useState();
   const [products, setProducts] = useState();
-  const [resetFilters, setResetFilters] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
   const [rating, setRating] = useState();
@@ -35,7 +34,6 @@ const App = () => {
     try {
       const { data } = await axios.get("http://test-api.edfa3ly.io/product");
       setProducts(data);
-      setFilteredProducts(data);
     } catch (error) {
       if (error)
         alert("There was a problem fetching the data, Please reload the page");
@@ -56,7 +54,9 @@ const App = () => {
     if (rating) {
       setFilteredProducts(
         products.filter((product) => {
-          return product.rating === rating;
+          return (
+            product.categoryId === selectedCategory && product.rating === rating
+          );
         })
       );
     }
@@ -66,12 +66,14 @@ const App = () => {
     if (selectedColors.length) {
       setFilteredProducts(
         products.filter((product) => {
-          return selectedColors.includes(product.color);
+          return (
+            selectedColors.includes(product.color) &&
+            product.categoryId === selectedCategory
+          );
         })
       );
     } else {
-      setFilteredProducts(products);
-      setResetFilters(false);
+      filterByCategory();
     }
   };
 
@@ -95,43 +97,36 @@ const App = () => {
 
   useEffect(() => {
     if (products && categories) {
-      setResetFilters(true);
       filterByCategory();
     }
   }, [selectedCategory]);
 
   useEffect(() => {
     if (products && categories) {
-      setResetFilters(true);
       filterByRating();
     }
   }, [rating]);
 
   useEffect(() => {
     if (products && categories) {
-      setResetFilters(true);
       filterByColors();
     }
   }, [selectedColors]);
 
-  useEffect(() => {
-    if (products && categories && !resetFilters) {
-      setFilteredProducts(products);
-    }
-  }, [resetFilters]);
-
   return (
     <Container className={classes.root} component="main" maxWidth="lg">
-      <Typography gutterBottom align="center" variant="h3" component="h1">
+      <Typography className={classes.title} variant="h3" component="h1">
         E-commerce store
       </Typography>
-      <Typography align="center" variant="h6">
+      <Typography
+        style={{ textTransform: "capitalize" }}
+        align="center"
+        variant="h6"
+      >
         Choose one of the categories below
       </Typography>
       {categories ? (
         <Categories
-          setResetFilters={setResetFilters}
-          resetFilters={resetFilters}
           setSelectedCategory={setSelectedCategory}
           categories={categories}
         ></Categories>

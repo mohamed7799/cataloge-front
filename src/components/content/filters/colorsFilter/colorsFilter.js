@@ -5,14 +5,18 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Button,
 } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 import { useContext } from "react";
 import { FiltersContext } from "../../../../App";
 import useStyle from "./style";
+import { useState } from "react";
 
 const ColorsFilter = () => {
   //variables
   const classes = useStyle();
+  const [clearFlag, setClearFlag] = useState(false);
   const { colors, setSelectedColors, selectedColors } =
     useContext(FiltersContext);
 
@@ -20,6 +24,7 @@ const ColorsFilter = () => {
 
   const addColor = (e) => {
     if (e.target.checked) {
+      setClearFlag(true);
       setSelectedColors([...selectedColors, e.target.value]);
     } else {
       setSelectedColors(
@@ -30,11 +35,27 @@ const ColorsFilter = () => {
     }
   };
 
+  const clear = () => {
+    setSelectedColors([]);
+    setClearFlag(false);
+  };
+
   return (
     <section>
       <Typography gutterBottom align="center" variant="h6">
         Colors
       </Typography>
+      {clearFlag && (
+        <Button
+          onClick={clear}
+          variant="text"
+          className={classes.button}
+          endIcon={<CloseIcon />}
+        >
+          Clear
+        </Button>
+      )}
+
       <Paper className={classes.root} variant="outlined">
         <FormControl component="fieldset">
           <FormGroup>
@@ -47,6 +68,7 @@ const ColorsFilter = () => {
                     color="primary"
                     name={color}
                     value={color}
+                    checked={selectedColors.includes(color)}
                   />
                 }
                 label={color}
