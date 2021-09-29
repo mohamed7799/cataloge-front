@@ -14,7 +14,7 @@ const Product = ({ product, category }) => {
 
   return (
     <Paper variant="outlined" className={classes.root} component="li">
-      <img src={`${product.image}`} alt="" />
+      <img src={`${product.image}${Math.random()}`} alt="" />
       <Typography variant="h6">{product.name}</Typography>
       <Rating name="rating" value={product.rating} readOnly />
       <Typography variant="subtitle1">
