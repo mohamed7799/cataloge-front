@@ -17,8 +17,13 @@ const ColorsFilter = () => {
   //variables
   const classes = useStyle();
   const [clearFlag, setClearFlag] = useState(false);
-  const { colors, setSelectedColors, selectedColors } =
-    useContext(FiltersContext);
+  const {
+    colors,
+    setSelectedColors,
+    selectedColors,
+    products,
+    selectedCategory,
+  } = useContext(FiltersContext);
 
   //functions
 
@@ -71,7 +76,28 @@ const ColorsFilter = () => {
                     checked={selectedColors.includes(color)}
                   />
                 }
-                label={color}
+                label={
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: ".5rem",
+                    }}
+                    key={color}
+                  >
+                    <Typography variant="h6">{color}</Typography>
+                    <Typography variant="subtitle2">
+                      {`(${
+                        products.filter((pro) => {
+                          return (
+                            pro.color === color &&
+                            pro.categoryId === selectedCategory
+                          );
+                        }).length
+                      })`}
+                    </Typography>
+                  </div>
+                }
               />
             ))}
           </FormGroup>

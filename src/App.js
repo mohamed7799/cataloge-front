@@ -13,11 +13,13 @@ const App = () => {
   const classes = useStyle();
   const [categories, setCategories] = useState();
   const [products, setProducts] = useState();
+  const [colors, SetColors] = useState();
+  const [priceRange, setPriceRange] = useState();
   const [filteredProducts, setFilteredProducts] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
-  const [rating, setRating] = useState();
-  const [colors, SetColors] = useState();
   const [selectedColors, setSelectedColors] = useState([]);
+  const [selectedRating, setSelectedRating] = useState([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState();
 
   //functions
   const fetchCategories = async () => {
@@ -41,24 +43,25 @@ const App = () => {
   };
 
   const filterByCategory = () => {
-    if (selectedCategory) {
-      setFilteredProducts(
-        products.filter((product) => {
-          return product.categoryId === selectedCategory;
-        })
-      );
-    }
+    setFilteredProducts(
+      products.filter((product) => {
+        return product.categoryId === selectedCategory;
+      })
+    );
   };
 
   const filterByRating = () => {
-    if (rating) {
+    if (selectedRating.length) {
       setFilteredProducts(
         products.filter((product) => {
           return (
-            product.categoryId === selectedCategory && product.rating === rating
+            product.categoryId === selectedCategory &&
+            selectedRating.includes(product.rating)
           );
         })
       );
+    } else {
+      filterByCategory();
     }
   };
 
@@ -75,6 +78,18 @@ const App = () => {
     } else {
       filterByCategory();
     }
+  };
+
+  const filterByPrice = () => {
+    setFilteredProducts(
+      products.filter((product) => {
+        return (
+          parseFloat(product.price) <= selectedPriceRange[1] &&
+          parseFloat(product.price) >= selectedPriceRange[0] &&
+          product.categoryId === selectedCategory
+        );
+      })
+    );
   };
 
   //hooks
@@ -98,6 +113,21 @@ const App = () => {
   useEffect(() => {
     if (products && categories) {
       filterByCategory();
+      const tempProducts = products.filter((product) => {
+        return product.categoryId === selectedCategory;
+      });
+      tempProducts.sort((a, b) => {
+        return a.price - b.price;
+      });
+
+      setPriceRange([
+        parseFloat(tempProducts[0].price),
+        parseFloat(tempProducts[tempProducts.length - 1].price),
+      ]);
+      setSelectedPriceRange([
+        parseFloat(tempProducts[0].price),
+        parseFloat(tempProducts[tempProducts.length - 1].price),
+      ]);
     }
   }, [selectedCategory]);
 
@@ -105,13 +135,19 @@ const App = () => {
     if (products && categories) {
       filterByRating();
     }
-  }, [rating]);
+  }, [selectedRating]);
 
   useEffect(() => {
     if (products && categories) {
       filterByColors();
     }
   }, [selectedColors]);
+
+  useEffect(() => {
+    if (products && categories) {
+      filterByPrice();
+    }
+  }, [selectedPriceRange]);
 
   return (
     <Container className={classes.root} component="main" maxWidth="lg">
@@ -135,7 +171,18 @@ const App = () => {
       )}
       {filteredProducts && categories && (
         <FiltersContext.Provider
-          value={{ setRating, colors, setSelectedColors, selectedColors }}
+          value={{
+            selectedRating,
+            setSelectedRating,
+            colors,
+            setSelectedColors,
+            selectedColors,
+            priceRange,
+            selectedPriceRange,
+            setSelectedPriceRange,
+            products,
+            selectedCategory,
+          }}
         >
           <Content
             categories={categories}

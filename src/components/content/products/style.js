@@ -9,6 +9,7 @@ const useStyle = makeStyles({
     gap: "1.5rem",
     height: "1000px",
     overflowY: "scroll",
+    minWidth: "350px",
     padding: "0rem 1rem",
     "&::-webkit-scrollbar": {
       width: "10px",

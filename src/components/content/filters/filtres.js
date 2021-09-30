@@ -1,4 +1,5 @@
 import ColorsFilter from "./colorsFilter/colorsFilter";
+import PriceFilter from "./priceFilter/priceFilter";
 import RatingFilter from "./ratingFilter/ratingFilter";
 import useStyle from "./style";
 
@@ -8,6 +9,7 @@ const Filters = () => {
 
   return (
     <section className={classes.root}>
+      <PriceFilter></PriceFilter>
       <ColorsFilter></ColorsFilter>
       <RatingFilter></RatingFilter>
     </section>
