@@ -42,7 +42,7 @@ const RatingFilter = () => {
 
   return (
     <section>
-      <Typography gutterBottom align="center" variant="h6">
+      <Typography gutterBottom variant="h6">
         Ratings
       </Typography>
       {clearFlag && (

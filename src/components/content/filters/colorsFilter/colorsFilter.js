@@ -47,7 +47,7 @@ const ColorsFilter = () => {
 
   return (
     <section>
-      <Typography gutterBottom align="center" variant="h6">
+      <Typography gutterBottom variant="h6">
         Colors
       </Typography>
       {clearFlag && (

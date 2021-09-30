@@ -21,8 +21,14 @@ const Product = ({ product, category }) => {
         {formatter.format(product.price)}
       </Typography>
       <div className={classes.productDetails}>
-        <Typography variant="subtitle1">{product.color}</Typography>
-        <Typography variant="subtitle1">{category}</Typography>
+        <Typography
+          color="textSecondary"
+          variant="subtitle2"
+        >{`Color: ${product.color}`}</Typography>
+        <Typography
+          color="textSecondary"
+          variant="subtitle2"
+        >{`Category: ${category}`}</Typography>
       </div>
     </Paper>
   );

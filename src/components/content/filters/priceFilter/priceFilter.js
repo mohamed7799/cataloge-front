@@ -12,7 +12,7 @@ const PriceFilter = () => {
   };
   return (
     <section>
-      <Typography gutterBottom align="center" variant="h6">
+      <Typography gutterBottom variant="h6">
         Price
       </Typography>
       <Paper variant="outlined" className={classes.root}>

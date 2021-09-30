@@ -13,6 +13,9 @@ const useStyle = makeStyles({
   productDetails: {
     display: "flex",
     justifyContent: "space-evenly",
+    "& > *": {
+      fontWeight: "bold",
+    },
   },
 });
 
