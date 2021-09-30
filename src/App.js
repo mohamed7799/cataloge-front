@@ -110,6 +110,7 @@ const App = () => {
     }
   }, [products]);
 
+  //change the category and get the min and the max price for this category
   useEffect(() => {
     if (products && categories) {
       filterByCategory();
