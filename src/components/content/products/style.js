@@ -4,12 +4,12 @@ const useStyle = makeStyles({
   root: {
     flex: "2",
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit,minmax(350px,1fr))",
+    gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))",
     gridAutoRows: "max-content",
     gap: "1.5rem",
     height: "1000px",
     overflowY: "scroll",
-    minWidth: "350px",
+    minWidth: "300px",
     padding: "0rem 1rem",
     "&::-webkit-scrollbar": {
       width: "10px",
