@@ -20,6 +20,7 @@ const App = () => {
   const [selectedColors, setSelectedColors] = useState([]);
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState();
+  const [searchedProducts, setSearchedProducts] = useState("");
 
   //functions
   const fetchCategories = async () => {
@@ -114,6 +115,8 @@ const App = () => {
   useEffect(() => {
     if (products && categories) {
       filterByCategory();
+      setSearchedProducts("");
+
       const tempProducts = products.filter((product) => {
         return product.categoryId === selectedCategory;
       });
@@ -150,6 +153,22 @@ const App = () => {
     }
   }, [selectedPriceRange]);
 
+  useEffect(() => {
+    if (products && categories) {
+      setFilteredProducts(
+        products.filter((product) => {
+          return (
+            product.name
+              .toLowerCase()
+              .replace(/\s+/g, "")
+              .includes(searchedProducts.toLowerCase().replace(/\s+/g, "")) &&
+            product.categoryId === selectedCategory
+          );
+        })
+      );
+    }
+  }, [searchedProducts]);
+
   return (
     <Container className={classes.root} component="main" maxWidth="lg">
       <Typography className={classes.title} variant="h3" component="h1">
@@ -183,6 +202,8 @@ const App = () => {
             setSelectedPriceRange,
             products,
             selectedCategory,
+            searchedProducts,
+            setSearchedProducts,
           }}
         >
           <Content
