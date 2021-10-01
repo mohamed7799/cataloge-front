@@ -25,7 +25,7 @@ const App = () => {
   //functions
   const fetchCategories = async () => {
     try {
-      const { data } = await axios.get("http://test-api.edfa3ly.io/category");
+      const { data } = await axios.get("https://test-api.edfa3ly.io/category");
       setCategories(data);
     } catch (error) {
       if (error)
@@ -35,7 +35,7 @@ const App = () => {
 
   const fetchproducts = async () => {
     try {
-      const { data } = await axios.get("http://test-api.edfa3ly.io/product");
+      const { data } = await axios.get("https://test-api.edfa3ly.io/product");
       setProducts(data);
     } catch (error) {
       if (error)
